@@ -2,21 +2,26 @@
 	<head>
 	 <title>Learn JavaScript</title>
 	</head>
-	
+
 	<body >
 		<canvas id="game" width="480px" height = "480px" > Your Web Navigator do not support Canvas</canvas>
 	</body>
-	
-	
-	
+
+
+
 </html>
 
 <!-- Include the SkelzEngine -->
+<script src="SkelzEngine/libs/underscore-min.js"></script>
 <script src="SkelzEngine/SkelzEngine.js"></script>
 <script src="game/room/Room1.js"></script>
 <script src="game/entity/Player.js"></script>
 <script src="game/entity/Projectile.js"></script>
 <script src="game/entity/Eclat.js"></script>
+<script src="game/IA/Environement.js"></script>
+<script src="game/IA/EnvironmentFactory.js"></script>
+<script src="game/IA/Ia.js"></script>
+<script src="game/IA/Logger.js"></script>
 
 <script>
 //style="width: 96vw; height: 96vh;"
@@ -29,11 +34,24 @@ elementCanvas.height = 480;
 var ctx = elementCanvas.getContext("2d");
 
 SkelzEngine.init(function(){
-	
+
 	ctx.strokeStyle = "#00FF00";
-	
-	
-	SkelzEngine.setRoom(new Room1());
+
+    var room = new Room1();
+
+	SkelzEngine.setRoom(room);
+
+    var logger = new Logger();
+
+    var ia = new Ia(EnvironmentFactory.factoryFromRoom(room, logger), logger);
+
+    ia.addEnemyInterface(Player);
+
+    window.setInterval(function()
+    {
+        ia.update();
+    }, 500);
+
 	//SkelzEngine.setRoom(new Room1());
 });
 
