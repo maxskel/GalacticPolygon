@@ -1,12 +1,12 @@
-<html style=" display: inline-block;margin: 0px auto;text-align: center;">
+﻿<html style=" display: inline-block; margin: 0px auto; text-align: center;">
 	<head>
-	 <title>Learn JavaScript</title>
+	 <title>Galactic Polygon (Alpha 0.1)</title>
 	</head>
 
 	<body style="overflow:hidden;">
-		<canvas id="game" width="480px" height = "480px" > Your Web Navigator do not support Canvas</canvas>
-	</body>
-
+         <canvas id="game" width="256px" height = "256px" style="width: 512px; height: 512px;"> Your Web Navigator do not support Canvas</canvas>
+    </body>
+    <h3> Controlles: Clavier(Flèches Dirrectionnelle & Barre Espace)</h3>
 <fieldset>
     <legend>Controlleur</legend>
     <div>
@@ -34,6 +34,13 @@
 <script src="game/Controller/TouchController.js"></script>
 <script src="game/Controller/NullController.js"></script>
 <script src="SkelzEngine/SkelzEngine.js"></script>
+
+<!-- modules -->
+<script src="SkelzEngine/libs/matter-0.8.0.min.js"></script>
+<script src="SkelzEngine/modules/Room.js"></script>
+<script src="SkelzEngine/modules/Entity.js"></script>
+
+<script src="game/global/Global.js"></script>
 <script src="game/room/Room1.js"></script>
 <script src="game/entity/Player.js"></script>
 <script src="game/entity/Projectile.js"></script>
@@ -45,6 +52,7 @@
 <script src="game/Logger/Logger.js"></script>
 <script src="game/Logger/WebLogger.js"></script>
 <script src="game/Logger/MultipleLogger.js"></script>
+<script src="game/entity/Monster.js"></script>
 
 <script>
 
@@ -85,9 +93,14 @@ document.querySelector("#null-controller").addEventListener("click", setNullCont
 var canvasContext2d = document.getElementById("game").getContext("2d");
 
 var elementCanvas = document.createElement("canvas");
-elementCanvas.width = 480;
-elementCanvas.height = 480;
+elementCanvas.width = 256;
+elementCanvas.height = 256;
 var ctx = elementCanvas.getContext("2d");
+
+canvasContext2d.imageSmoothingEnabled= false;
+ctx.imageSmoothingEnabled= false;
+canvasContext2d.mozImageSmoothingEnabled = false;
+ctx.mozImageSmoothingEnabled = false;
 
 SkelzEngine.init(function(){
 
@@ -115,7 +128,7 @@ SkelzEngine.init(function(){
 
     window.setInterval(function()
     {
-        ia.update();
+   //     ia.update();
     }, 500);
 
 	//SkelzEngine.setRoom(new Room1());
