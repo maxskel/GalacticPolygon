@@ -12,6 +12,8 @@ var KeyboardController = (function()
             horizontal : 0,
             vertical : 0
         };
+
+        this.fire = false;
     };
 
     _.extend(classFunction.prototype, {
@@ -50,12 +52,11 @@ var KeyboardController = (function()
 
                 if(state == KEYDOWN)
                 {
-                    pressBar = true;
+                    this.fire = true;
                 }
                 else
                 {
-                    pressBar = false;
-                    releasePressBar = true;
+                    this.fire = false;
                 }
             }
         },
@@ -64,6 +65,8 @@ var KeyboardController = (function()
              //console.log("[CONTROLLER] "+ this.direction.horizontal + " : " + this.direction.vertical);
 
              player.move(this.direction);
+
+             player.fire = this.fire;
         },
         init : function()
         {
