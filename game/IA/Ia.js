@@ -19,6 +19,11 @@ var Ia = (function() {
             this.environment = environment;
         };
 
+        this.setEnvironment = function(environment)
+        {
+            this.environment = environment;
+        };
+
         this.addEnemyInterface = function(enemyInterface)
         {
             this.enemyInterfaces.push(enemyInterface);
@@ -40,17 +45,46 @@ var Ia = (function() {
 
             var enemys = _.filter(entitys, function(entity)
             {
-                return entity instanceof Player;
+                return entity instanceof Monster && entity.getPosition().y > 0 && entity.getPosition().x > 0;
             });
+
+            if(_.isEmpty(enemys))
+            {
+                console.log("skip");
+                return;
+            }
 
             this.defenders = entitys;
 
             var defender = this.getDefender();
 
-            defender.move({
-                horizontal: 1,
-                vertical: 0
+            var distanceEnemys = new Array();
+
+            _.sortBy(enemys, function(enemy)
+            {
+                return (enemy.getPosition().y - defender.getPosition().y);
             });
+
+            /**
+            _.each(enemys, function(enemy)
+            {
+                console.log("@@ " + enemy.getPosition().y + " : " + defender.getPosition().y);
+            });
+             */
+
+            var myEnemy = _.first(enemys);
+
+            var enemyPosition = myEnemy.getPosition();
+            var defenderPosition = defender.getPosition();
+
+            var direction = {
+                horizontal: (enemyPosition.x == defenderPosition.x) ? 0 : (enemyPosition.x > defenderPosition.x ) ? 1 : -1,
+                vertical: (defenderPosition.y < 450) ? 0 : -1
+            };
+
+//            console.log(direction);
+
+            defender.move(direction, 5);
 
             defender.fired();
 

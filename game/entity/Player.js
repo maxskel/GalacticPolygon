@@ -11,7 +11,7 @@ function Player() {
 	var releasePressBar = false;
 	var invProject = false;
 	var projectileTimeReloadCounter = 0, projectileTimeReload = 2;
-	var speed = 1;
+	this.speed = 1;
     var life = 10;
 
 	this.id = 0;
@@ -33,8 +33,10 @@ function Player() {
 			//}else{
 				this.name = "Player";
 				var posx=50,posy=150;
-				var tri = Matter.Bodies.polygon(posx,posy,3,16,{
-                    inertia: Infinity, density: 0.01, frictionAir: 0.5,
+				var tri = Matter.Bodies.polygon(posx,posy,3,12,{
+                    inertia: Infinity,
+                    density: 0.01,
+                    frictionAir: 0.5,
                     render: {
                         fillStyle: 'red',
                         strokeStyle: 'blue',
@@ -57,9 +59,9 @@ function Player() {
             ctx.fillText("Scrore:"+Global.score,200,10);
 
 					//Matter.Body.translate(body,{x:speed,y:0});
-					body.force.x=(speed/100) * this.direction.horizontal;
+					body.force.x=(this.speed/100) * this.direction.horizontal;
 					//Matter.Body.translate(body,{x:0,y:speed});
-					body.force.y=(speed/100) * this.direction.vertical;
+					body.force.y=(this.speed/100) * this.direction.vertical;
 
 				if(this.fire && projectileTimeReloadCounter >= projectileTimeReload) {
 
@@ -113,14 +115,13 @@ function Player() {
         {
             console.log("onfire");
         };
-
 		Player.initialized = true;
 	}
 
     window.setInterval(_.bind(function()
     {
         SkelzEngine.getController().update(this);
-    }, this), 250);
+    }, this), 100);
 
 
 }

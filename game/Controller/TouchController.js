@@ -22,7 +22,7 @@ var TouchController = (function()
     _.extend(classFunction.prototype, {
         update: function(player)
         {
-            player.move(this.direction, 0.1);
+            player.move(this.direction, 0.05);
 
             player.fire = this.fire;
         },

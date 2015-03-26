@@ -128,7 +128,8 @@ SkelzEngine.init(function(){
 
     window.setInterval(function()
     {
-   //     ia.update();
+        ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
+        ia.update();
     }, 500);
 
 	//SkelzEngine.setRoom(new Room1());

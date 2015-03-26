@@ -51,14 +51,6 @@ function Entity(){
 		};
 
 		/**
-		* Retourne undefined ou le Body configurer via setBody(Body);
-		* @return Body or undefined
-		*/
-		Entity.prototype.getBody = function(){
-			return this.priv_body;
-		};
-
-		/**
 		* Décharge l'entité en mémoire, Suprime l'entité de la room actuel et libèrre la mémoire.
 		* Vous ne pouvez plus utiliser une entity apret avoir apeller cette méthode car il ne seras plus valide.
 		* vous pouvez vérifier la validiter d'une entity grace a la méthode de l'Entity "isValid();"
@@ -143,4 +135,16 @@ function Entity(){
 		Entity.initialized = true;
 	}
 }
-_.extend(Entity.prototype, EventDispatcher.prototype);
+_.extend(Entity.prototype, EventDispatcher.prototype, {
+    getPosition : function() {
+        return this.getBody().position;
+    },
+    /**
+     * Retourne undefined ou le Body configurer via setBody(Body);
+     * @return Body or undefined
+     */
+    getBody : function(){
+        return this.priv_body;
+    }
+
+});
