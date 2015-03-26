@@ -8,6 +8,8 @@ var Ia = (function() {
            Player
         ];
 
+        this.defenders = [];
+
         this.__constructor = function(environment, logger)
         {
             this.logger = logger;
@@ -22,6 +24,16 @@ var Ia = (function() {
             this.enemyInterfaces.push(enemyInterface);
         };
 
+        this.addDefender = function(defender)
+        {
+            this.defenders.push(defender);
+        };
+
+        this.getDefender = function()
+        {
+            return _.first(this.defenders);
+        };
+
         this.update = function()
         {
             var entitys = this.environment.getEntitys();
@@ -31,7 +43,15 @@ var Ia = (function() {
                 return entity instanceof Player;
             });
 
+            this.defenders = entitys;
 
+            var defender = this.getDefender();
+
+            defender.move();
+
+            defender.fire();
+
+            this.logger.log("DEBUG", "[IA] " + _.size(enemys) + " enemys left");
 
             this.logger.log("DEBUG", "[IA] update");
         };

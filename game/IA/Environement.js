@@ -9,7 +9,7 @@ var Environment = (function() {
 
         this.addEntity = function(entity)
         {
-            this.entitys = entity;
+            this.entitys.push(entity);
 
             this.logger.log("DEBUG", "[Environment] add Entity");
         };
