@@ -57,6 +57,7 @@ function Entity(){
 		*/
 		Entity.prototype.destroy = function(){
 			Matter.Composite.remove(SkelzEngine.engine.world,this.priv_body,true);
+
 			this.priv_destroyCalled = true;
 		};
 

@@ -23,7 +23,11 @@ function Player() {
 	if(typeof Player.initialized == "undefined"){
 
 		Player.prototype.init = function(room){
+
+//            Matter.Events.on(SkelzEngine.engine, "tick", _.bind(this.render, this));
+
             this.addEventListener("onFire", _.bind(this.onFire, this))
+            //this.addEventListener("onDestroy", _.bind(this.onDestroy, this));
 			this.id = Player.block;
 			//if(this.id === 0){
 				//var rect =  Matter.Bodies.rectangle(400,0,800,90,{ isStatic: true });
@@ -51,6 +55,16 @@ function Player() {
 			Player.block++;
 		};
 
+        Player.prototype.prerender = function(room)
+        {
+            if(this.priv_destroyCalled)
+            {
+                if(room.hasEventDispatcher())
+                {
+                    room.getEventDispatcher().notify("dead");
+                }
+            }
+        };
 
 		Player.prototype.render = function(room){
 			var body = parent.getBody.call(this);
@@ -81,7 +95,8 @@ function Player() {
 				projectileTimeReloadCounter++;
 
            // Matter.Render.bodies(SkelzEngine.engine, [body], ctx);
-			SkelzEngine.debugDraw(ctx,body);
+			//SkelzEngine.debugDraw(ctx,body);
+
 			//if(this.id > 0)
 			//Matter.Body.rotate(body,3.14/360*2*Player.tt);
 
@@ -104,10 +119,13 @@ function Player() {
                 }
 
                 Global.playerLives --;
-
-                this.add(room, new Player());
             }
 		}
+
+        Player.prototype.onDestroy = function()
+        {
+            console.log("onDestroy");
+        };
 
 		Player.prototype.collisionStart = function(entity) {
             if (entity.name == "Eclat") {

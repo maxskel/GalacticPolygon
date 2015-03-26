@@ -13,6 +13,7 @@
         <button type="button" id="mouse-controller" onclick="SkelzEngine.setController(new MouseController())">Mouse</button>
         <button type="button" id="keyboard-controller" onclick="SkelzEngine.setController(new KeyboardController())">Keyboard</button>
         <button type="button" id="touch-controller">Touch</button>
+        <button type="button" id="gamepad-controller">Gamepad</button>
         <button type="button" id="null-controller" onclick="SkelzEngine.setController(new NullController())">Aucun</button>
     </div>
 </fieldset>
@@ -33,7 +34,11 @@
 <script src="game/Controller/MouseController.js"></script>
 <script src="game/Controller/TouchController.js"></script>
 <script src="game/Controller/NullController.js"></script>
+<script src="game/Controller/GamepadController.js"></script>
 <script src="SkelzEngine/SkelzEngine.js"></script>
+
+<!-- custom engine factory -->
+<script src="game/EngineFactory.js"></script>
 
 <!-- modules -->
 <script src="SkelzEngine/libs/matter-0.8.0.min.js"></script>
@@ -77,6 +82,11 @@ var setNullController = function()
     SkelzEngine.setController(new NullController());
 };
 
+var setGamepadController = function()
+{
+    SkelzEngine.setController(new GamepadController());
+};
+
 document.querySelector("#mouse-controller").addEventListener("touchstart", setMouseController);
 document.querySelector("#mouse-controller").addEventListener("click", setMouseController);
 
@@ -88,6 +98,9 @@ document.querySelector("#touch-controller").addEventListener("click", setTouchCo
 
 document.querySelector("#null-controller") .addEventListener("touchstart", setNullController);
 document.querySelector("#null-controller").addEventListener("click", setNullController);
+
+document.querySelector("#gamepad-controller").addEventListener("touchstart", setGamepadController);
+document.querySelector("#gamepad-controller").addEventListener("click", setGamepadController);
 
 //style="width: 96vw; height: 96vh;"
 //Code de base pour le SkelzEngine
@@ -129,12 +142,12 @@ SkelzEngine.init(function(){
 
     window.setInterval(function()
     {
-        ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
-        ia.update();
+       // ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
+       // ia.update();
     }, 500);
 
 	//SkelzEngine.setRoom(new Room1());
-});
+}, null);
 
 </script>
 

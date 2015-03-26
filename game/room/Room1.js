@@ -18,6 +18,7 @@ Room1.prototype = _.extend(Room.prototype, {
         this.add(new Player());
         this.add(new Monster());
         this.gameHub = new GameHud();
+        this.addEventListener("dead", _.bind(this.onDeadPlayer, this));
     },
     render: function()
     {
@@ -34,5 +35,17 @@ Room1.prototype = _.extend(Room.prototype, {
         ctx.fillRect(0,0,300,300);
 
         monsterCount++;
+    },
+    onDeadPlayer: function()
+    {
+        this.add(new Player());
+    },
+    hasEventDispatcher: function()
+    {
+        return true;
+    },
+    getEventDispatcher: function()
+    {
+        return this;
     }
-});
+}, EventDispatcher.prototype);

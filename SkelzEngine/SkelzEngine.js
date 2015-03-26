@@ -60,12 +60,14 @@ SkelzEngine.setRoom = function(room){
 /**
  * Appelle le callback a la fin de l'initialisation.
  */
-SkelzEngine.init = function(callback){
+SkelzEngine.init = function(callback, customEngine){
 /**
     SafeInclude.include("SkelzEngine/libs/matter-0.8.0.min.js");
     SafeInclude.include("SkelzEngine/modules/Room.js");
     SafeInclude.include("SkelzEngine/modules/Entity.js");
 */
+    if(typeof customEngine == "undefined") customEngine = null;
+
     SafeInclude.includeReady(
         function(){
             var MyRenderer = {
@@ -100,11 +102,11 @@ SkelzEngine.init = function(callback){
             };
 
             // create a Matter.js engine
-            var engine = Matter.Engine.create({
+            var engine = (customEngine === null) ? Matter.Engine.create({
                 render: {
                     controller: MyRenderer
                 }
-            });
+            }) : customEngine;
 
             //############## Écrase la fonction World.create de matter.js #################
             Matter.World.create = function(options) {
@@ -215,6 +217,10 @@ SkelzEngine.init = function(callback){
         var cx=-center.x,cy=-center.y;
 
         ctx.save();
+
+        ctx.strokeStyle = body.render.fillStyle;
+        ctx.fillStyle = body.render.fillStyle;
+
         ctx.translate(center.x,center.y);
         ctx.beginPath();
 
