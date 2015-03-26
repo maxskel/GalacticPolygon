@@ -7,6 +7,14 @@
          <canvas id="game" width="256px" height = "256px" style="width: 512px; height: 512px;"> Your Web Navigator do not support Canvas</canvas>
     </body>
     <h3> Controlles: Clavier(Flèches Dirrectionnelle & Barre Espace)</h3>
+
+<fieldset>
+    <legend>Engine</legend>
+</fieldset>
+<fieldset>
+    <legend>Menu</legend>
+    <button type="button" onclick="SkelzEngine.setRoom(new Menu());">Menu</button>
+</fieldset>
 <fieldset>
     <legend>Controlleur</legend>
     <div>
@@ -45,11 +53,15 @@
 <script src="SkelzEngine/modules/Room.js"></script>
 <script src="SkelzEngine/modules/Entity.js"></script>
 
+<script src="https://code.createjs.com/soundjs-0.6.0.min.js"></script>
+
 <script src="game/global/Global.js"></script>
 <script src="game/room/Room1.js"></script>
+<script src="game/UI/Gui.js"></script>
 <script src="game/entity/Player.js"></script>
 <script src="game/entity/Projectile.js"></script>
 <script src="game/entity/Eclat.js"></script>
+<script src="game/UI/Bouton.js"></script>
 <script src="game/IA/Environement.js"></script>
 <script src="game/IA/EnvironmentFactory.js"></script>
 <script src="game/IA/Ia.js"></script>
@@ -59,7 +71,8 @@
 <script src="game/Logger/MultipleLogger.js"></script>
 <script src="game/entity/Monster.js"></script>
 <script src="game/util-general/GameHud.js"></script>
-
+<script src="game/util-general/InterfaceValidity.js"></script>
+<script src="game/SoundManager/ZeroEngineSoundManagerInterface.js"></script>
 <script>
 
 var setMouseController = function()
@@ -106,48 +119,48 @@ document.querySelector("#gamepad-controller").addEventListener("click", setGamep
 //Code de base pour le SkelzEngine
 var canvasContext2d = document.getElementById("game").getContext("2d");
 
-var elementCanvas = document.createElement("canvas");
-elementCanvas.width = 256;
-elementCanvas.height = 256;
-var ctx = elementCanvas.getContext("2d");
-
+//var ctx = canvasContext2d;
 canvasContext2d.imageSmoothingEnabled= false;
-ctx.imageSmoothingEnabled= false;
 canvasContext2d.mozImageSmoothingEnabled = false;
-ctx.mozImageSmoothingEnabled = false;
 
-SkelzEngine.init(function(){
+var start = function()
+{
 
-	ctx.strokeStyle = "#00FF00";
-
-    var room = new Room1();
-
-    //SkelzEngine.setController(new KeyboardController());
-    SkelzEngine.setController(new NullController());
+    SkelzEngine.init(function(){
 
 
-	SkelzEngine.setRoom(room);
+        var room = new Room1();
 
-    var logger = new MultipleLogger([
-      //  new WebLogger(document.querySelector("#log-panel")),
-        new Logger()
-    ]);
+        //SkelzEngine.setController(new KeyboardController());
+        SkelzEngine.setController(new NullController());
 
-    // Attention utiliser le wrapper peut provoquer une boucle sans fin si le logger est utiliser
-    //WrapperConsoleLog.wrap(logger);
 
-    var ia = new Ia(EnvironmentFactory.factoryFromRoom(room, logger), logger);
+        SkelzEngine.setRoom(room);
 
-    ia.addEnemyInterface(Player);
+        var logger = new MultipleLogger([
+            //  new WebLogger(document.querySelector("#log-panel")),
+            new Logger()
+        ]);
 
-    window.setInterval(function()
-    {
-       // ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
-       // ia.update();
-    }, 500);
+        // Attention utiliser le wrapper peut provoquer une boucle sans fin si le logger est utiliser
+        //WrapperConsoleLog.wrap(logger);
 
-	//SkelzEngine.setRoom(new Room1());
-}, null);
+        var ia = new Ia(EnvironmentFactory.factoryFromRoom(room, logger), logger);
+
+        ia.addEnemyInterface(Player);
+
+        window.setInterval(function()
+        {
+            // ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
+            // ia.update();
+        }, 500);
+
+        //SkelzEngine.setRoom(new Room1());
+    }, EngineFactory.factory());
+};
+
+    start();
+
 
 </script>
 

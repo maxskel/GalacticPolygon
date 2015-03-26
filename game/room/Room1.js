@@ -12,7 +12,7 @@ function Room1(){
 	Room.call(this);
 }
 
-Room1.prototype = _.extend(Room.prototype, {
+_.extend(Room1.prototype, Room.prototype, {
     init : function()
     {
         this.add(new Player());
@@ -28,11 +28,8 @@ Room1.prototype = _.extend(Room.prototype, {
         }
 
         GameHud.prototype.render.call(this.gameHud);
-        canvasContext2d.drawImage(elementCanvas,0,0);
+    //    canvasContext2d.drawImage(elementCanvas,0,0);
 
-        ctx.fillStyle = "black";
-        ctx.strokeStyle = "#00FF00";
-        ctx.fillRect(0,0,300,300);
 
         monsterCount++;
     },

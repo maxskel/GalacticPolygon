@@ -6,7 +6,12 @@ var EngineFactory = (function()
             return Matter.Engine.create({
                 render: {
                     controller: Matter.Render,
-                    canvas : document.querySelector("#game")
+                    canvas : document.querySelector("#game"),
+                    options:
+                    {
+                        showDebug: true,
+                        wireframes: false
+                    }
                 }
             });
         }

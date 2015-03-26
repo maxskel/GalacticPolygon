@@ -36,7 +36,7 @@
 			}*/
 			//Matter.Body.translate(body,{x:-1, y:0});
 
-			SkelzEngine.debugDraw(ctx,body);
+			//SkelzEngine.debugDraw(ctx,body);
 
 			if(this.vie <= 0){
 				var bool = false;

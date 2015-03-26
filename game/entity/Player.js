@@ -20,6 +20,8 @@ function Player() {
         vertical : 0
     };
 
+    createjs.Sound.registerSound("assets/sound/fire.mp3", "fire");
+
 	if(typeof Player.initialized == "undefined"){
 
 		Player.prototype.init = function(room){
@@ -43,8 +45,7 @@ function Player() {
                     density: 0.01,
                     frictionAir: 0.5,
                     render: {
-                        fillStyle: 'red',
-                        strokeStyle: 'blue',
+                        fillStyle: '#abcdef',
                         lineWidth: 3
                     }
                 });
@@ -70,9 +71,12 @@ function Player() {
 			var body = parent.getBody.call(this);
 			var pos = body.position;
 			body.center = Matter.Vertices.centre(body.vertices);
-            ctx.fillStyle = "#00FF00";
-            ctx.fillText("Scrore:"+Global.score,200,10);
 
+            if(typeof canvasContext2d != "undefined")
+            {
+                canvasContext2d.fillStyle = "#00FF00";
+                canvasContext2d.fillText("Scrore:"+Global.score,200,10);
+            }
 					//Matter.Body.translate(body,{x:speed,y:0});
 					body.force.x=(this.speed/100) * this.direction.horizontal;
 					//Matter.Body.translate(body,{x:0,y:speed});
@@ -90,6 +94,8 @@ function Player() {
 
 					projectileTimeReloadCounter = 0;
 					releasePressBar = false;
+
+                    createjs.Sound.play("fire");
 				}
 
 				projectileTimeReloadCounter++;
