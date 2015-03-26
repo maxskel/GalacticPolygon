@@ -16,11 +16,22 @@ var MouseController = (function()
         this.fire = false;
 
         this.last = null;
+
+        this.mouseMove = false;
+
+        this.timerMouse = null;
     };
 
     _.extend(classFunction.prototype, {
         onMouseMove : function(keyCode, state)
         {
+            this.mouseMove = true;
+            clearTimeout(this.timerMouse);
+            this.timerMouse = setTimeout(_.bind(function()
+            {
+                this.mouseMove = false;
+            }, this), 150);
+
             this.direction = {
                 horizontal : 0,
                 vertical : 0
@@ -50,7 +61,17 @@ var MouseController = (function()
         {
             //console.log("[CONTROLLER] "+ this.direction.horizontal + " : " + this.direction.vertical);
 
-            player.move(this.direction, 0.1);
+            if(this.mouseMove)
+            {
+                player.move(this.direction, 0.1);
+            }
+            else
+            {
+                player.move({
+                    horizontal : 0,
+                    vertical: 0
+                });
+            }
 
             player.fire = this.fire;
         },

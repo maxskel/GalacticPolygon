@@ -10,9 +10,10 @@
 <fieldset>
     <legend>Controlleur</legend>
     <div>
-        <button type="button" onclick="SkelzEngine.setController(new MouseController())">Mouse</button>
-        <button type="button" onclick="SkelzEngine.setController(new KeyboardController())">Keyboard</button>
-        <button type="button" onclick="SkelzEngine.setController(new NullController())">Aucun</button>
+        <button type="button" id="mouse-controller" onclick="SkelzEngine.setController(new MouseController())">Mouse</button>
+        <button type="button" id="keyboard-controller" onclick="SkelzEngine.setController(new KeyboardController())">Keyboard</button>
+        <button type="button" id="touch-controller">Touch</button>
+        <button type="button" id="null-controller" onclick="SkelzEngine.setController(new NullController())">Aucun</button>
     </div>
 </fieldset>
 
@@ -30,6 +31,7 @@
 <script src="game/IA/Event.js"></script>
 <script src="game/Controller/KeyboardController.js"></script>
 <script src="game/Controller/MouseController.js"></script>
+<script src="game/Controller/TouchController.js"></script>
 <script src="game/Controller/NullController.js"></script>
 <script src="SkelzEngine/SkelzEngine.js"></script>
 <script src="game/room/Room1.js"></script>
@@ -45,6 +47,39 @@
 <script src="game/Logger/MultipleLogger.js"></script>
 
 <script>
+
+var setMouseController = function()
+{
+    SkelzEngine.setController(new MouseController())
+};
+
+var setKeyboardController = function()
+{
+    SkelzEngine.setController(new KeyboardController());
+};
+
+var setTouchController = function()
+{
+    SkelzEngine.setController(new TouchController());
+};
+
+var setNullController = function()
+{
+    SkelzEngine.setController(new NullController());
+};
+
+document.querySelector("#mouse-controller").addEventListener("touchstart", setMouseController);
+document.querySelector("#mouse-controller").addEventListener("click", setMouseController);
+
+document.querySelector("#keyboard-controller").addEventListener("touchstart", setKeyboardController);
+document.querySelector("#keyboard-controller").addEventListener("click", setKeyboardController);
+
+document.querySelector("#touch-controller") .addEventListener("touchstart", setTouchController);
+document.querySelector("#touch-controller").addEventListener("click", setTouchController);
+
+document.querySelector("#null-controller") .addEventListener("touchstart", setNullController);
+document.querySelector("#null-controller").addEventListener("click", setNullController);
+
 //style="width: 96vw; height: 96vh;"
 //Code de base pour le SkelzEngine
 var canvasContext2d = document.getElementById("game").getContext("2d");
