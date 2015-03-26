@@ -32,7 +32,14 @@ function Player(){ Entity.call(this);
 			}else{
 				this.name = "Player";
 				var posx=50,posy=150;
-				var tri = Matter.Bodies.polygon(posx,posy,3,16,{inertia: Infinity, density: 0.01, frictionAir: 0.5});
+				var tri = Matter.Bodies.polygon(posx,posy,3,16,{
+                    inertia: Infinity, density: 0.01, frictionAir: 0.5,
+                    render: {
+                        fillStyle: 'red',
+                        strokeStyle: 'blue',
+                        lineWidth: 3
+                    }
+                });
 
 				Matter.Body.rotate(tri,3.14/360*2*-30);
 				parent.setBody.call(this,tri);
@@ -69,6 +76,7 @@ function Player(){ Entity.call(this);
 
 				projectileTimeReloadCounter++;
 			}
+           // Matter.Render.bodies(SkelzEngine.engine, [body], ctx);
 			SkelzEngine.debugDraw(ctx,body);
 			//if(this.id > 0)
 			//Matter.Body.rotate(body,3.14/360*2*Player.tt);
