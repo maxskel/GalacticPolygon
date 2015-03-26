@@ -1,0 +1,46 @@
+<html style=" display: inline-block;margin: 0px auto;text-align: center;">
+	<head>
+	 <title>Learn JavaScript</title>
+	</head>
+	
+	<body >
+		<canvas id="game" width="480px" height = "480px" > Your Web Navigator do not support Canvas</canvas>
+	</body>
+	
+	
+	
+</html>
+
+<!-- Include the SkelzEngine -->
+<script src="SkelzEngine/SkelzEngine.js"></script>
+<script src="game/room/Room1.js"></script>
+<script src="game/entity/Player.js"></script>
+<script src="game/entity/Projectile.js"></script>
+<script src="game/entity/Eclat.js"></script>
+
+<script>
+//style="width: 96vw; height: 96vh;"
+//Code de base pour le SkelzEngine
+var canvasContext2d = document.getElementById("game").getContext("2d");
+
+var elementCanvas = document.createElement("canvas");
+elementCanvas.width = 480;
+elementCanvas.height = 480;
+var ctx = elementCanvas.getContext("2d");
+
+SkelzEngine.init(function(){
+	
+	ctx.strokeStyle = "#00FF00";
+	
+	
+	SkelzEngine.setRoom(new Room1());
+	//SkelzEngine.setRoom(new Room1());
+});
+
+</script>
+
+
+
+
+
+

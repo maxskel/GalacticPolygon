@@ -1,0 +1,37 @@
+<html>
+	<head>
+	 <title>Learn JavaScript</title>
+	</head>
+	
+	<body >
+		<canvas id="game" width="800px" height = "600px"></canvas>
+	</body>
+	
+	
+	
+</html>
+
+<!-- Include the SkelzEngine -->
+<script src="SkelzEngine/SkelzEngine.js"></script>
+
+<script>
+//Code de base pour le SkelzEngine
+
+SkelzEngine.init(function(){
+
+	//Start application or game code here.
+	SkelzEngine.setRender(function(){
+		//draw simple rectangle
+		var ctx = document.getElementById("game").getContext("2d");
+		ctx.fillRect(0,0,32,32);
+	});
+
+});
+
+</script>
+
+
+
+
+
+
