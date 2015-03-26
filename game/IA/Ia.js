@@ -47,9 +47,12 @@ var Ia = (function() {
 
             var defender = this.getDefender();
 
-            defender.move();
+            defender.move({
+                horizontal: 1,
+                vertical: 0
+            });
 
-            defender.fire();
+            defender.fired();
 
             this.logger.log("DEBUG", "[IA] " + _.size(enemys) + " enemys left");
 

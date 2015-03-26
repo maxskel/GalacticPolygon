@@ -367,6 +367,18 @@ function SkelzEngine(){
 		SkelzEngine.priv_renderCallback = callback;
 	}
 
+    SkelzEngine.setController = function(controller)
+    {
+        controller.init();
+
+        SkelzEngine.controller = controller;
+    };
+
+    SkelzEngine.getController = function()
+    {
+        return (typeof SkelzEngine.controller != "undefined") ? SkelzEngine.controller : null;
+    };
+
 	/**
 	* Permet de configurer une room qui seras actualiser a toutes les frame ainsi que ca méthode render()
 	* Quand l'ont passe une room a cette méthode elle apelle 1 fois la méthode init de la room en question

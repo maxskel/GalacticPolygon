@@ -7,13 +7,31 @@
 		<canvas id="game" width="480px" height = "480px" > Your Web Navigator do not support Canvas</canvas>
 	</body>
 
+<fieldset>
+    <legend>Controlleur</legend>
+    <div>
+        <button type="button" onclick="SkelzEngine.setController(new MouseController())">Mouse</button>
+        <button type="button" onclick="SkelzEngine.setController(new KeyboardController())">Keyboard</button>
+        <button type="button" onclick="SkelzEngine.setController(new NullController())">Aucun</button>
+    </div>
+</fieldset>
 
+<fieldset>
+    <legend>Log panel</legend>
+    <div style="background: red; height: 200px; width: 100%; overflow: auto;" id="log-panel">
+
+    </div>
+</fieldset>
 
 </html>
 
 <!-- Include the SkelzEngine -->
 <script src="SkelzEngine/libs/underscore-min.js"></script>
 <script src="game/IA/Event.js"></script>
+<script src="game/IA/WrapperConsoleLog.js"></script>
+<script src="game/Controller/KeyboardController.js"></script>
+<script src="game/Controller/MouseController.js"></script>
+<script src="game/Controller/NullController.js"></script>
 <script src="SkelzEngine/SkelzEngine.js"></script>
 <script src="game/room/Room1.js"></script>
 <script src="game/entity/Player.js"></script>
@@ -23,6 +41,8 @@
 <script src="game/IA/EnvironmentFactory.js"></script>
 <script src="game/IA/Ia.js"></script>
 <script src="game/IA/Logger.js"></script>
+<script src="game/IA/WebLogger.js"></script>
+<script src="game/IA/MultipleLogger.js"></script>
 
 <script>
 //style="width: 96vw; height: 96vh;"
@@ -40,9 +60,19 @@ SkelzEngine.init(function(){
 
     var room = new Room1();
 
+    //SkelzEngine.setController(new KeyboardController());
+    SkelzEngine.setController(new NullController());
+
+
 	SkelzEngine.setRoom(room);
 
-    var logger = new Logger();
+    var logger = new MultipleLogger([
+      //  new WebLogger(document.querySelector("#log-panel")),
+        new Logger()
+    ]);
+
+    // Attention utiliser le wrapper peut provoquer une boucle sans fin si le logger est utiliser
+    //WrapperConsoleLog.wrap(logger);
 
     var ia = new Ia(EnvironmentFactory.factoryFromRoom(room, logger), logger);
 
