@@ -1,4 +1,4 @@
-var Ia = (function() {
+define([], function() {
 
     'use strict';
 
@@ -95,4 +95,4 @@ var Ia = (function() {
 
         this.__constructor(environment, logger);
     };
-})();
+});

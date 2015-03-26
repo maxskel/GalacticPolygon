@@ -1,4 +1,4 @@
-var MultipleLogger = (function()
+define([], function()
 {
     return function(loggers)
     {
@@ -10,4 +10,4 @@ var MultipleLogger = (function()
             });
         };
     };
-})();
+});

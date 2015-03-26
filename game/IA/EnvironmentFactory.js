@@ -1,4 +1,4 @@
-var EnvironmentFactory = (function()
+define(["./Environement"], function(Environment)
 {
     'use strict';
 
@@ -15,4 +15,4 @@ var EnvironmentFactory = (function()
             return environment;
         }
     };
-})();
+});

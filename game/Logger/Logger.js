@@ -1,4 +1,4 @@
-var Logger = (function()
+define([], function()
 {
     return function()
     {
@@ -7,4 +7,4 @@ var Logger = (function()
             console.log("["+level+"] "+message);
         };
     };
-})();
+});

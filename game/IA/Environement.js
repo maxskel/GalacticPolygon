@@ -1,4 +1,4 @@
-var Environment = (function() {
+define([""],function() {
     'use strict';
 
     return function(logger)
@@ -19,4 +19,4 @@ var Environment = (function() {
            return this.entitys;
         };
     };
-})();
+});

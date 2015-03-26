@@ -1,4 +1,4 @@
-var WebLogger = (function()
+define([], function()
 {
     return function(element)
     {
@@ -9,4 +9,4 @@ var WebLogger = (function()
             element.scrollTop = element.scrollHeight;
         };
     };
-})();
+});

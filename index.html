@@ -25,7 +25,12 @@
         <button type="button" id="null-controller">Aucun</button>
     </div>
 </fieldset>
-
+<fieldset>
+    <legend>Ia</legend>
+    <div>
+        <button type="button" id="enable-ia">Enable ia</button>
+    </div>
+</fieldset>
 <fieldset>
     <legend>Log panel</legend>
     <div style="background: red; height: 200px; width: 100%; overflow: auto;" id="log-panel">
@@ -66,13 +71,6 @@
 <script src="game/entity/Projectile.js"></script>
 <script src="game/entity/Eclat.js"></script>
 <script src="game/UI/Bouton.js"></script>
-<script src="game/IA/Environement.js"></script>
-<script src="game/IA/EnvironmentFactory.js"></script>
-<script src="game/IA/Ia.js"></script>
-<script src="game/Logger/WrapperConsoleLog.js"></script>
-<script src="game/Logger/Logger.js"></script>
-<script src="game/Logger/WebLogger.js"></script>
-<script src="game/Logger/MultipleLogger.js"></script>
 <script src="game/entity/Monster.js"></script>
 <script src="game/util-general/GameHud.js"></script>
 <script src="game/util-general/InterfaceValidity.js"></script>
@@ -126,6 +124,41 @@ var setGamepadController = function()
     });
 };
 
+var enableIa = function()
+{
+    require([
+        "game/IA/EnvironmentFactory",
+        "game/IA/Ia",
+        "game/Logger/Logger.js",
+        "game/Logger/WebLogger",
+        "game/Logger/MultipleLogger"
+    ], function(
+            EnvironmentFactory,
+            Ia,
+            Logger,
+            WebLogger,
+            MultipleLogger
+    )
+    {
+        var room = SkelzEngine.priv_room;
+
+        var logger = new MultipleLogger([
+        //  new WebLogger(document.querySelector("#log-panel")),
+        new Logger()
+        ]);
+
+        var ia = new Ia(EnvironmentFactory.factoryFromRoom(room, logger), logger);
+
+        ia.addEnemyInterface(Player);
+
+        window.setInterval(function()
+        {
+            ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
+            ia.update();
+        }, 500);
+    });
+};
+
 document.querySelector("#mouse-controller").addEventListener("touchstart", setMouseController);
 document.querySelector("#mouse-controller").addEventListener("click", setMouseController);
 
@@ -140,6 +173,9 @@ document.querySelector("#null-controller").addEventListener("click", setNullCont
 
 document.querySelector("#gamepad-controller").addEventListener("touchstart", setGamepadController);
 document.querySelector("#gamepad-controller").addEventListener("click", setGamepadController);
+
+document.querySelector("#enable-ia").addEventListener("touchstart", enableIa);
+document.querySelector("#enable-ia").addEventListener("click", enableIa);
 
 //style="width: 96vw; height: 96vh;"
 //Code de base pour le SkelzEngine
@@ -174,23 +210,8 @@ var start = function(NullController)
 
         SkelzEngine.setRoom(room);
 
-        var logger = new MultipleLogger([
-            //  new WebLogger(document.querySelector("#log-panel")),
-            new Logger()
-        ]);
-
         // Attention utiliser le wrapper peut provoquer une boucle sans fin si le logger est utiliser
         //WrapperConsoleLog.wrap(logger);
-
-        var ia = new Ia(EnvironmentFactory.factoryFromRoom(room, logger), logger);
-
-        ia.addEnemyInterface(Player);
-
-        window.setInterval(function()
-        {
-            // ia.setEnvironment(EnvironmentFactory.factoryFromRoom(room, logger));
-            // ia.update();
-        }, 500);
 
         //SkelzEngine.setRoom(new Room1());
     }, (typeof optionsUrl["engine"] == "undefined") ? null : EngineFactory.factory(optionsUrl["engine"]));

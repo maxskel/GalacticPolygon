@@ -1,4 +1,4 @@
-var NullLogger = (function()
+define([], function()
 {
     return function(element)
     {
@@ -6,4 +6,4 @@ var NullLogger = (function()
         {
         };
     };
-})();
+});
