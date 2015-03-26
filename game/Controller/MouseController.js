@@ -1,7 +1,7 @@
 /**
  * Created by darkilliant on 3/25/15.
  */
-var MouseController = (function()
+define([], function()
 {
     var MOUSEDOWN = 1;
     var MOUSEUP = 2;
@@ -95,4 +95,4 @@ var MouseController = (function()
     });
 
     return classFunction;
-})();
+});

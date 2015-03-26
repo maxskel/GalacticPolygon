@@ -1,7 +1,7 @@
 /**
  * Created by darkilliant on 3/25/15.
  */
-var TouchController = (function()
+define([], function()
 {
     var TOUCHSTART = 1;
     var TOUCHEND = 2;
@@ -90,4 +90,4 @@ var TouchController = (function()
     });
 
     return classFunction;
-})();
+});

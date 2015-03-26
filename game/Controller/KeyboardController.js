@@ -1,5 +1,7 @@
 define([], function()
     {
+        'use strict';
+
         var KEYDOWN = 1;
         var KEYUP = 2;
 

@@ -1,7 +1,7 @@
 /**
  * Created by darkilliant on 3/25/15.
  */
-var NullController = (function()
+define("game/Controller/NullController", [], function()
 {
     // Todo : separate listenerController and controller
     var classFunction = function() {
@@ -23,4 +23,4 @@ var NullController = (function()
     });
 
     return classFunction;
-})();
+});

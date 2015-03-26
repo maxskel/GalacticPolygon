@@ -1,7 +1,7 @@
 /**
  * Created by darkilliant on 3/25/15.
  */
-var GamepadController = (function()
+define([], function()
 {
     // Todo : separate listenerController and controller
     var classFunction = function() {
@@ -95,4 +95,4 @@ var GamepadController = (function()
     });
 
     return classFunction;
-})();
+});

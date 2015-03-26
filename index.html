@@ -37,7 +37,7 @@
 <script src="require.js"></script>
 <script type="text/javascript">
     requirejs.config({
-        baseUrl : ""
+        baseUrl : "./"
     });
 </script>
 <!-- Include the SkelzEngine -->
@@ -55,8 +55,11 @@
 <script src="SkelzEngine/modules/Entity.js"></script>
 
 <script src="https://code.createjs.com/soundjs-0.6.0.min.js"></script>
+<!--
 <script src="http://cdnjs.cloudflare.com/ajax/libs/pixi.js/2.2.8/pixi.js"></script>
+-->
 <script src="game/global/Global.js"></script>
+<script src="game/Controller/NullController.js"></script>
 <script src="game/room/Room1.js"></script>
 <script src="game/UI/Gui.js"></script>
 <script src="game/entity/Player.js"></script>
@@ -85,7 +88,7 @@ if(error !== true) InterfaceValidity.throwError(error);
 
 var setMouseController = function()
 {
-    require(["game/Controller/MouseController"], function(KeyboardController)
+    require(["game/Controller/MouseController"], function(MouseController)
     {
         SkelzEngine.setController(new MouseController());
     });
@@ -101,7 +104,7 @@ var setKeyboardController = function()
 
 var setTouchController = function()
 {
-    require(["game/Controller/TouchController"], function(KeyboardController)
+    require(["game/Controller/TouchController"], function(TouchController)
     {
         SkelzEngine.setController(new TouchController());
     });
@@ -109,7 +112,7 @@ var setTouchController = function()
 
 var setNullController = function()
 {
-    require(["game/Controller/NullController"], function(KeyboardController)
+    require(["game/Controller/NullController"], function(NullController)
     {
         SkelzEngine.setController(new NullController());
     });
@@ -117,7 +120,7 @@ var setNullController = function()
 
 var setGamepadController = function()
 {
-    require(["game/Controller/GamepadController"], function(KeyboardController)
+    require(["game/Controller/GamepadController"], function(GamepadController)
     {
         SkelzEngine.setController(new GamepadController());
     });
@@ -157,7 +160,7 @@ _.each(_optionsKeyValue, function(keyvalue)
    optionsUrl[keyvalue[0]] = keyvalue[1];
 });
 
-var start = function()
+var start = function(NullController)
 {
 
     SkelzEngine.init(function(){
@@ -193,7 +196,7 @@ var start = function()
     }, (typeof optionsUrl["engine"] == "undefined") ? null : EngineFactory.factory(optionsUrl["engine"]));
 };
 
-start();
+require(["game/Controller/NullController"], start);
 
 
 </script>
