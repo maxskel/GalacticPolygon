@@ -75,6 +75,13 @@
 <script src="game/SoundManager/ZeroEngineSoundManagerInterface.js"></script>
 <script>
 
+var ZeroEngineSoundManager = createjs.Sound;
+
+// Validate sound manager
+var error = InterfaceValidity.validatePrototype(ZeroEngineSoundManager, ZeroEngineSoundManagerInterface);
+
+if(error !== true) InterfaceValidity.throwError(error);
+
 var setMouseController = function()
 {
     SkelzEngine.setController(new MouseController())
@@ -123,6 +130,17 @@ var canvasContext2d = document.getElementById("game").getContext("2d");
 canvasContext2d.imageSmoothingEnabled= false;
 canvasContext2d.mozImageSmoothingEnabled = false;
 
+var optionsUrl = new Array();
+
+var _optionsKeyValue = window.location.hash.replace("#", "").split("&");
+
+_.each(_optionsKeyValue, function(keyvalue)
+{
+   var keyvalue = keyvalue.split("=");
+
+   optionsUrl[keyvalue[0]] = keyvalue[1];
+});
+
 var start = function()
 {
 
@@ -156,10 +174,10 @@ var start = function()
         }, 500);
 
         //SkelzEngine.setRoom(new Room1());
-    }, EngineFactory.factory());
+    }, (typeof optionsUrl["engine"] == "undefined") ? null : EngineFactory.factory(optionsUrl["engine"]));
 };
 
-    start();
+start();
 
 
 </script>

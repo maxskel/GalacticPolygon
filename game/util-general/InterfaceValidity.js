@@ -3,10 +3,22 @@ var InterfaceValidity = {
    {
        var methodUnavaible = _.filter(Interface, function(method)
        {
-          return (typeof instance[Interface] == "undefined");
+          return (typeof instance[method] == "undefined");
        });
 
-       return _.isEmpty(methodUnavaible) ? true : methodUnavaible;
+       var validated = _.isEmpty(methodUnavaible) ? true : methodUnavaible;
+
+       if(validated)
+       {
+           if(typeof  instance.__interfaceValidated == "undefined")
+           {
+               instance.__interfaceValidated = new Array();
+           }
+
+           instance.__interfaceValidated.push(Interface);
+       }
+
+       return validated;
    },
    throwError : function(methodUnavailable)
    {

@@ -101,6 +101,16 @@ SkelzEngine.init = function(callback, customEngine){
                             console.warn("SkelzEngine.setRender(callback); Render callback is not set.");
                         SkelzEngine.priv_warningRenderCallback = false;
                     }
+
+                    var room = SkelzEngine.priv_room;
+
+                    //canvasContext2d.style.background = "white";
+
+                    _.each(room.getEntityList(), function(entity)
+                    {
+                        SkelzEngine.debugDraw(canvasContext2d, entity.getBody(), false);
+                    });
+
                 },
                 clear: function(){
                 }
@@ -217,7 +227,33 @@ SkelzEngine.init = function(callback, customEngine){
      *
      */
     SkelzEngine.debugDraw = function(context2D, body, fillBoolFacultatif){
+        var ctx = context2D;
+        var center = Matter.Vertices.centre(body.vertices);
+        var cx=-center.x,cy=-center.y;
 
+        ctx.save();
+        ctx.translate(center.x,center.y);
+        ctx.beginPath();
+
+        for(var i=0; i < body.vertices.length;i++){
+            if(i === 0){
+                ctx.moveTo(body.vertices[i].x +cx, body.vertices[i].y +cy);
+            }else{
+                ctx.lineTo(body.vertices[i].x +cx, body.vertices[i].y +cy );
+            }
+        }
+
+        ctx.lineTo(body.vertices[0].x +cx, body.vertices[0].y +cy );
+        ctx.lineTo(body.vertices[1].x +cx, body.vertices[1].y +cy );
+
+        if(fillBoolFacultatif === true)
+            ctx.fill();
+        else
+            ctx.stroke();
+
+       // ctx.closePath();
+
+        ctx.restore();
     };
 };
 //Fin SkelzEngine class
