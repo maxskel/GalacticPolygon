@@ -14,7 +14,7 @@ var NullController = (function()
     _.extend(classFunction.prototype, {
         update: function(player)
         {
-
+            player.move(this.direction);
         },
         init : function()
         {
