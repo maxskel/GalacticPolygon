@@ -63,7 +63,7 @@ var MouseController = (function()
 
             if(this.mouseMove)
             {
-                player.move(this.direction, 0.1);
+                player.move(this.direction, 0.5);
             }
             else
             {
@@ -77,17 +77,17 @@ var MouseController = (function()
         },
         init : function()
         {
-            window.addEventListener("mousemove", _.bind(function(event)
+            document.querySelector("#game").addEventListener("mousemove", _.bind(function(event)
             {
                 this.onMouseMove(event);
             }, this));
 
-            window.addEventListener("mousedown", _.bind(function(event)
+            document.querySelector("#game").addEventListener("mousedown", _.bind(function(event)
             {
                 this.onMousePress(MOUSEDOWN);
             }, this));
 
-            window.addEventListener("mouseup", _.bind(function(event)
+            document.querySelector("#game").addEventListener("mouseup", _.bind(function(event)
             {
                 this.onMousePress(MOUSEUP);
             }, this));

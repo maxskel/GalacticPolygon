@@ -22,7 +22,7 @@ var TouchController = (function()
     _.extend(classFunction.prototype, {
         update: function(player)
         {
-            player.move(this.direction, 0.05);
+            player.move(this.direction, 0.6);
 
             player.fire = this.fire;
         },
@@ -63,7 +63,7 @@ var TouchController = (function()
         },
         init : function()
         {
-            window.addEventListener("touchstart", _.bind(function(event)
+            document.querySelector("#game").addEventListener("touchstart", _.bind(function(event)
             {
                 this.onTouch({
                     x : event.changedTouches[0].pageX,
@@ -71,7 +71,7 @@ var TouchController = (function()
                 },TOUCHSTART);
             }, this));
 
-            window.addEventListener("touchend", _.bind(function(event)
+            document.querySelector("#game").addEventListener("touchend", _.bind(function(event)
             {
                 this.onTouch({
                     x : event.changedTouches[0].pageX,
@@ -79,7 +79,7 @@ var TouchController = (function()
                 },TOUCHEND);
             }, this));
 
-            window.addEventListener("touchmove",  _.bind(function(event)
+            document.querySelector("#game").addEventListener("touchmove",  _.bind(function(event)
             {
                 this.onTouchMove({
                     x : event.changedTouches[0].pageX,
