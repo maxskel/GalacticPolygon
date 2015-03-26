@@ -1,9 +1,8 @@
-﻿Player.tt = 0;
+Player.tt = 0;
 Player.block = 0;
 
 function Player() {
     Entity.call(this);
-
 	this.destroyCount = 0;
 	var parent = Entity.prototype;
 	var me = this;
@@ -32,7 +31,9 @@ function Player() {
 				//parent.setBody.call(this, rect);
 			//}else{
 				this.name = "Player";
-				var posx=50,posy=150;
+                Global.playerHealth = 100;
+
+                var posx=250/2,posy=230;
 				var tri = Matter.Bodies.polygon(posx,posy,3,12,{
                     inertia: Infinity,
                     density: 0.01,
@@ -81,18 +82,42 @@ function Player() {
 
            // Matter.Render.bodies(SkelzEngine.engine, [body], ctx);
 			SkelzEngine.debugDraw(ctx,body);
-
 			//if(this.id > 0)
 			//Matter.Body.rotate(body,3.14/360*2*Player.tt);
 
 			//Matter.Body.rotate(body,0.08);
 			Player.tt++;
+
+            //MORT DU JOUEUR
+            if(Global.playerHealth <= 0){
+                parent.destroy.call(this);
+
+                var bool = false;
+                for(var i=0; i < 10; i++){
+                    if(bool === true){
+                        Room.prototype.add.call(room,new Eclat((pos.x-5)+Math.random()*10,pos.y));
+                        bool = false;
+                    }else{
+                        Room.prototype.add.call(room,new Eclat( (pos.x-5)+Math.random()*10,pos.y,true));
+                        bool = true
+                    }
+                }
+
+                Global.playerLives --;
+
+                this.add(room, new Player());
+            }
 		}
 
-		Player.prototype.collisionStart = function(entity){
-			//parent.destroy.call(this);
-		}
+		Player.prototype.collisionStart = function(entity) {
+            if (entity.name == "Eclat") {
+                Global.playerHealth -= 0.5;
+            }
 
+            if (entity.name == "Monster") {
+                Global.playerHealth -= 20;
+            }
+        }
 
         Player.prototype.move = function(direction, speed)
         {

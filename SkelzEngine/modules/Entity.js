@@ -68,29 +68,28 @@ function Entity(){
 
 			//Capture des erreures lier au méthode essential au Entity
 			if(this.render === undefined){
-				console.error("The Entity class need method render(room)");
-				alert("The Entity class need method render(room)");
+				console.error("Entity Child need method:[    Entity.prototype.render = function(room){};    ]");
+				alert("Entity Child need method:[    Entity.prototype.render = function(room){};    ]");
 			}
 
 			if(this.init === undefined){
-				console.error("The Entity class need method init(room)");
-				alert("The Entity class need method init(room)");
+				console.error("Entity Child need method:[    Entity.prototype.init = function(room){};    ]");
+				alert("Entity Child need method:[    Entity.prototype.init = function(room){};    ]");
 			}
 
-			if(Entity.oneHitWarning === false){
+			if(Entity.oneHitWarning === false && SkelzEngine.priv_const_showWarnMsg === true){
+
+
 				if(this.collisionStart === undefined){
-					if(SkelzEngine.priv_const_showWarnMsg === true)
-						console.warn("The Entity class need method collisionStart(Entity_B); for collision.");
+					console.warn("The Entity class need method collisionStart(Entity_B); for collision.");
 				}
 
 				if(this.collisionEnd === undefined){
-					if(SkelzEngine.priv_const_showWarnMsg === true)
-						console.warn("The Entity class need method collisionEnd(Entity_B); for collision.");
+					console.warn("The Entity class need method collisionEnd(Entity_B); for collision.");
 				}
 
 				if(this.collisionActive === undefined){
-					if(SkelzEngine.priv_const_showWarnMsg === true)
-						console.warn("The Entity class need method collisionActive(Entity_B); for collision.");
+					console.warn("The Entity class need method collisionActive(Entity_B); for collision.");
 				}
 
 				Entity.oneHitWarning = true;
