@@ -32,7 +32,7 @@ var Button = (function()
         render: function(room)
         {
             console.log("bouton");
-            canvasContext2d.fillStyle = 'rgba(100,100,100)';
+            canvasContext2d.fillStyle = 'rgb(255,0,0)';
             canvasContext2d.fillText("truc",100,100);
         }
     });
