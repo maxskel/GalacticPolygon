@@ -6,7 +6,7 @@
 	
 	if(Monster.initialized === undefined){
 		
-		Monster.prototype.init = function(){
+		Monster.prototype.init = function(room){
 
 			this.name = "Monster";
 			var posx=60+Math.random()*190,posy=-80;

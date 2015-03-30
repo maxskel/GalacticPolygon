@@ -11,7 +11,7 @@ Pour être sur que tous est bien charger vous devez commencer a programmer dans 
 
 function SkelzEngine() {}
 
-SkelzEngine.priv_const_maxWorldBounds = 500; // 2100000000 //Défénie les dimention maximum des mondes World/Room
+SkelzEngine.priv_const_maxWorldBounds = 400; // 2100000000 //Défénie les dimention maximum des mondes World/Room
 SkelzEngine.priv_const_globalGravity = {x: 0.0000, y: 0.0000};// Gravité constante des mondes.
 SkelzEngine.priv_const_showWarnMsg = true;
 SkelzEngine.priv_const_setFps_fpsChosenPhys = 20;//Fps du moteur physique de Matter.js SkelzEngine.setFps(fps); pour changer le fps des renders
@@ -245,16 +245,15 @@ SafeInclude.dejasIncluTab = [];
 */
 SafeInclude.include = function (pathName) {
 	var stopInclude = false;
-
+	
 	for (var i=0; i < SafeInclude.dejasIncluTab.length; i++){
 		if(SafeInclude.dejasIncluTab[i] == pathName){
 			stopInclude = true;
 		}
 	}
-
+	
 	if(stopInclude !== true){
 		SafeInclude.dejasIncluTab.push(pathName);
-		
 		SafeInclude.includeInLoad++;
 		
 		var imported = document.createElement("script");
@@ -264,7 +263,6 @@ SafeInclude.include = function (pathName) {
 		imported.onload = function(){
 			SafeInclude.includeInLoad--;
 		};
-		
 		document.head.appendChild(imported);
 	}
 };

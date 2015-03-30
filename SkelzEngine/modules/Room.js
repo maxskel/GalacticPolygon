@@ -39,12 +39,10 @@ function Room(){
 		*/
 		Room.prototype.preRender = function(){
 	
-			this.render();
-
 			//Liste tous les entity et apelle leur methode render.
 			for(var i=0; i < this.priv_entityList.length; i++){
 				
-				if(this.priv_entityList[i] != "undefined"){
+				if(this.priv_entityList[i] !== undefined){
 					
 					if(this.priv_entityList[i].priv_destroyCalled === true){
 						//suprime lentité et tous ses enfant
@@ -64,6 +62,8 @@ function Room(){
 					
 				}
 			}
+			
+			this.render();
 		};
 		
 		/**
