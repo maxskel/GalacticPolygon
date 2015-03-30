@@ -1,16 +1,18 @@
-function Eclat(number_x,number_y){ 
+﻿function Eclat(posX, posY, boolean_inverseDirection){ 
 	Entity.call(this);
 	this.parent = Entity.prototype;
-	this.x=number_x;
-	this.y=number_y;
+	this.x=posX;
+	this.y=posY;
+	this.boolInv = boolean_inverseDirection;
 	
-	this.deathCount = 120;
+	this.deathCount = 180;
 	
 	if( typeof Eclat.initialized == "undefined"){
 		
 		Eclat.prototype.init = function(room){
 			this.name = "Eclat";
-			var w=Math.random()*4+1,h=Math.random()*4+1;
+			var w=Math.random()*5+2;
+			var h=Math.random()*5+2;
 			var randomX=Math.random()*10,randomY=Math.random()*10;
 			
 			this.parent.setBody.call(this,Matter.Bodies.rectangle(this.x+randomX,this.y+randomY,w,h,{frictionAir: 0}));
@@ -19,15 +21,22 @@ function Eclat(number_x,number_y){
 			
 			var bodies = [body];
 			var inv = 1;
-			var puissance = Math.random()*15+10;
-			var puissanceX = Math.random()*4;
+			var puissance = Math.random()*15+5;
+			var puissanceX = Math.random()*10;
 			
 			if(Math.random()*10 < 5){
 				inv = -1;
 			}
 			
-			Matter.Body.applyGravityAll(bodies,{x:puissanceX*inv,y:puissance});
-		}
+			if(this.boolInv === false)
+				Matter.Body.applyGravityAll(bodies,{x:puissanceX*inv,y:puissance});
+			else if(this.boolInv === true){
+				Matter.Body.applyGravityAll(bodies,{x:puissanceX*inv,y:puissance*-1});
+			}else{
+				Matter.Body.applyGravityAll(bodies,{x:puissanceX*inv,y:puissance});
+			}
+				
+		};
 		
 		Eclat.prototype.render = function(room){
 			var body = this.parent.getBody.call(this);
@@ -40,7 +49,7 @@ function Eclat(number_x,number_y){
 			}
 			
 			this.deathCount--;
-		}
+		};
 
 		
 		Eclat.initialized = true;
