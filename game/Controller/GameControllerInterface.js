@@ -1,0 +1,4 @@
+var GameControllerInterface = [
+    "init",
+    "update"
+];
