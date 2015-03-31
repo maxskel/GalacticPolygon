@@ -1,0 +1,4 @@
+var ZeroEngineSoundManagerInterface = [
+    "registerSound",
+    "play"
+];
