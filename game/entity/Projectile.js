@@ -45,8 +45,6 @@
 
 		Projectile.initialized = true;
 	}
-
-
-
-
 }
+
+_.extend(Projectile.prototype, Entity.prototype);

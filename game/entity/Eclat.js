@@ -55,9 +55,6 @@
 		Eclat.initialized = true;
 	}
 
-
-
-
-
-
 }
+
+_.extend(Eclat.prototype, Entity.prototype);

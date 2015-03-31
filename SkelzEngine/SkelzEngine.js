@@ -104,7 +104,7 @@ SkelzEngine.init = function(callback, customEngine){
 
                     var room = SkelzEngine.priv_room;
 
-                    //canvasContext2d.style.background = "white";
+                    canvasContext2d.clearRect(0, 0, SkelzEngine.priv_const_maxWorldBounds, SkelzEngine.priv_const_maxWorldBounds);
 
                     _.each(room.getEntityList(), function(entity)
                     {
@@ -232,6 +232,9 @@ SkelzEngine.init = function(callback, customEngine){
         var cx=-center.x,cy=-center.y;
 
         ctx.save();
+
+        ctx.strokeStyle = body.render.fillStyle;
+
         ctx.translate(center.x,center.y);
         ctx.beginPath();
 
